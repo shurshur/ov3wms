@@ -1,0 +1,68 @@
+MAP
+  NAME "OrbView-3"
+  CONFIG "CPL_DEBUG" "ON"
+  STATUS ON
+  UNITS METERS
+  SHAPEPATH "/home/shurik/orbview3"
+
+  PROJECTION
+    "init=epsg:4326"
+  END
+  EXTENT -180 -90 180 90
+
+WEB
+    TEMPLATE "template.html"
+    IMAGEPATH "/home/shurik/orbview3/"
+    IMAGEURL "/ov3/"
+    METADATA
+	"wms_title"     "OrvView-3 Test WMS"
+	"wms_onlineresource" "http://osm.sbin.ru/ov3/"
+	"wms_srs"       "EPSG:4326"
+    END
+END
+
+# >=mapserver-6.0 required for UNION support
+
+#LAYER
+#    NAME "orbview3"
+#    CONNECTIONTYPE UNION
+#    CONNECTION "orbview3pv,orbview3rec"
+#END
+
+# orbview3 othorectified images
+LAYER
+    NAME "orbview3rec"
+    TYPE RASTER
+    STATUS ON
+    OPACITY ALPHA
+    TILEINDEX "ti/ov3.shp"
+    TILEITEM "Location"
+    MAXSCALEDENOM 20000
+    PROJECTION
+        "init=epsg:3857"
+    END
+    METADATA
+	"wms_title" "OrbView-3"
+	"wms_srs" "EPSG:3857"
+    END
+END
+
+# orbview3 preview images
+LAYER
+    NAME "orbview3pv"
+    TYPE RASTER
+    STATUS ON
+    OPACITY ALPHA
+    MINSCALEDENOM 20000
+    TILEINDEX "ti/ov3pv.shp"
+    TILEITEM "Location"
+    PROJECTION
+        "init=epsg:4326"
+    END
+    METADATA
+	"wms_title" "OrbView-3 Preview"
+	"wms_srs" "EPSG:3857"
+    END
+END
+
+END

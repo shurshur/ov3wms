@@ -1,0 +1,42 @@
+f=$1
+if [ ! -f "$f" ]
+then
+  echo usage: "$0" filename.ZIP
+  exit
+fi
+
+rm ../b/*
+unzip $f -d ../b/
+cd ../b/
+pwd
+
+rm -f tmp.tif
+t=`ls *.tif`
+n=`echo $t|sed s@.tif@.rec.tif@`
+
+../hist $t > ../hist/$t.hist
+#stats=`gdalinfo -stats $t > xxxtemp_stats.junk`
+#min=`cat xxxtemp_stats.junk | grep MINIMUM | awk -F= '{print $2}' | sed 's/ //g'`
+#max=`cat xxxtemp_stats.junk | grep MAXIMUM | awk -F= '{print $2}' | sed 's/ //g'`
+min=`cat ../hist/$t.hist|grep RANGE|awk '{ print $2 }'`
+max=`cat ../hist/$t.hist|grep RANGE|awk '{ print $3 }'`
+
+gdal_translate -a_srs epsg:4326 -scale $min $max -ot byte $t tmp.tif
+
+gdalwarp \
+  -co TILED=YES \
+  -co JPEG_QUALITY=85 \
+  -co COMPRESS=JPEG \
+  -multi \
+  -dstnodata 0 \
+  -srcnodata 0 \
+  -overwrite \
+  -ot byte \
+  -t_srs epsg:3857 \
+  -rpc \
+  -to 'RPC_DEM=../dem/srtm.vrt' \
+  -to 'RPC_HEIGHT='`perl ../scripts/pvl2height.pl *.pvl` \
+  tmp.tif \
+  $n
+
+mv $n ../rec/

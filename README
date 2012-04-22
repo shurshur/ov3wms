@@ -1,0 +1,34 @@
+OrbView-3 WMS
+
+Requires:
+
+>=gdal-1.8.1
+libtiff
+GeographicLib
+mapserver
+
+Quick HOWTO:
+
+0. Run make in src/
+
+1. Put original ZIP files from USGS to directory data/
+
+2. Run 'for i in *.ZIP; do unzip $i "*.pvl"; done' in data/
+
+3. Run script ../scripts/getsrtm in data/
+
+4. Unpack all files from ../dem/ to ../dem/srtm/
+
+5. Run gdalbuildvrt srtm.vrt ../dem/srtm/*.tif
+
+6. For every ZIP files in data/ run script ../scripts/rec
+
+Look into rec/ directory for ready files
+
+You may also use ASTER GDEM 2 instead of SRTM
+
+Adding files to mapserver:
+
+gdaltindex ti/ov3.shp rec/*.tif
+for i in data/*.ZIP; do unzip $i -d pv/ -o '*.j*'; done 
+gdaltindex ti/ov3pv.shp pv/*.jpg

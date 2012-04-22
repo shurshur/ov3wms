@@ -1,0 +1,11 @@
+for f in ../dem/ASTGTM2_*.7z
+do
+  n=`echo $f|perl -pne 's@^.+/@@'|perl -pne 's/\.7z//'`
+  d=${n}_dem.tif
+  if [ ! -f ../dem/aster/$d ]
+  then
+    7z x -o../dem/aster/ $f $d
+  fi
+done
+cd ../dem
+gdalbuildvrt aster.vrt ../dem/aster/*.tif

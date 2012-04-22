@@ -1,0 +1,13 @@
+b=http://gis-lab.info/data/srtm-tif
+
+for i in *.pvl
+do
+  for j in `../scripts/pvl2srtm.pl $i`
+  do
+    if [ ! -f ../dem/$j.zip ]
+    then
+      wget $b/$j.zip -O ../dem/$j.zip
+    fi
+  done
+done
+
