@@ -14,7 +14,7 @@ rm -f tmp.tif
 t=`ls *.tif`
 n=`echo $t|sed s@.tif@.rec.tif@`
 
-../hist $t > ../hist/$t.hist
+../src/hist $t > ../hist/$t.hist
 #stats=`gdalinfo -stats $t > xxxtemp_stats.junk`
 #min=`cat xxxtemp_stats.junk | grep MINIMUM | awk -F= '{print $2}' | sed 's/ //g'`
 #max=`cat xxxtemp_stats.junk | grep MAXIMUM | awk -F= '{print $2}' | sed 's/ //g'`
