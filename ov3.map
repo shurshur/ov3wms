@@ -26,6 +26,8 @@ END
 
 LAYER
     NAME "orbview3"
+    TYPE RASTER
+    STATUS ON
     CONNECTIONTYPE UNION
     CONNECTION "orbview3pv,orbview3rec"
 END
