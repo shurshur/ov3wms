@@ -1,0 +1,41 @@
+MAP
+  NAME "OrbView-3"
+#  CONFIG "CPL_DEBUG" "ON"
+  STATUS ON
+  UNITS METERS
+  SHAPEPATH "/home/shurik/orbview3"
+
+  PROJECTION
+    "init=epsg:4326"
+  END
+  EXTENT -180 -90 180 90
+  TRANSPARENT ON
+
+WEB
+    TEMPLATE "template.html"
+    IMAGEPATH "/home/shurik/orbview3/"
+    IMAGEURL "/ov3/@ID@"
+    METADATA
+        "ows_enable_request"   "*"
+	"wms_title"     "OrbView-3 @ID@"
+	"wms_onlineresource" "http://osm.sbin.ru/ov3/@ID@"
+	"wms_srs" "EPSG:3857 EPSG:4326"
+    END
+END
+
+LAYER
+    NAME "orbview3rec"
+    TYPE RASTER
+    STATUS ON
+    OPACITY ALPHA
+    DATA "rec/@IDL@.rec.tif"
+    PROJECTION
+        "init=epsg:3857"
+    END
+    METADATA
+	"wms_title" "OrbView-3 Rectified"
+	"wms_srs" "EPSG:3857 EPSG:4326"
+    END
+END
+
+END

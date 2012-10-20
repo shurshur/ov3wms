@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+use strict;
+
+sub proc;
+1;
+
+my $tmpl;
+open F,"<map/tmpl";
+$tmpl.=$_ while <F>;
+close F;
+
+proc $_ foreach @ARGV;
+
+exit;
+
+sub proc {
+  my ($id)=@_;
+  $id=~s#.+/##;
+  $id=~s#\.rec\.tif##;
+  $id=~s#\.ZIP##;
+  $id=uc $id;
+  my $idl=lc $id;
+  my $map=$tmpl;
+  $map=~s#\@ID@#$id#igmx;
+  $map=~s#\@IDL@#$idl#igmx;
+  open F,">map/$id.map";
+  print F $map;
+  close F;
+}
+
+
