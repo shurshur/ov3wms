@@ -1,6 +1,6 @@
 MAP
   NAME "OrbView-3"
-  CONFIG "CPL_DEBUG" "ON"
+  #CONFIG "CPL_DEBUG" "ON"
   STATUS ON
   UNITS METERS
   SHAPEPATH "/home/shurik/orbview3"

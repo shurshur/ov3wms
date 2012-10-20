@@ -1,0 +1,10 @@
+f=$1
+if [ ! -f "$f" ]
+then
+  echo usage: "$0" filename.ZIP
+  exit
+fi
+
+unzip -o -d ../pv/ $f '*.j*'
+cd ..
+gdaltindex ti/ov3pv.shp pv/*.jpg
