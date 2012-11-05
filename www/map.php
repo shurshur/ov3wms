@@ -39,7 +39,7 @@ function init() {
     var locs = loc.split('|');
     center = new L.LatLng(locs[1], locs[0]);
     zoom = locs[2];
-  } else if(clientLat || clientLon) {
+  } else {
     center = new L.LatLng(62.0, 88.0);
     zoom = 8;
   }
