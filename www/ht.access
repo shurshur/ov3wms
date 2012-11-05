@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteRule ^ms$ /cgi-bin/mapserv [L,QSA]
+RewriteRule ^(3V[0-9A-Z_]+)$ /cgi-bin/mapserv?map=map/$1.map [L,QSA]
+RewriteRule ^info$ info.php [L]
+RewriteRule ^click$ click.php [L,QSA]
+RewriteRule ^map$ map.php [L,QSA]
+RewriteRule ^browse:([A-Z0-9a-z_]+)$ browse.php?id=$1 [L,QSA]
+RewriteRule ^bingcover/([0-9]+)/([0-9]+)/([0-9])\.png$ bingcover.php?z=$1&x=$2&y=$3
+RewriteRule ^$ /cgi-bin/mapserv?map=ov3.map [L,QSA]
+
