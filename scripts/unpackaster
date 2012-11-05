@@ -8,4 +8,4 @@ do
   fi
 done
 cd ../dem
-gdalbuildvrt aster.vrt ../dem/aster/*.tif
+gdalbuildvrt aster.vrt ../dem/aster/*.tif ../dem/srtm/*.tif
