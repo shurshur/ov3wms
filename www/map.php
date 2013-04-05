@@ -64,7 +64,17 @@ function init() {
     ); 
   var ov3 = new L.TileLayer.WMS('http://osm.sbin.ru/ov3/',{minZoom: 6, layers: ['orbview3rec,orbview3pv'], format: 'image/png', attribution: OV3_COPY});
   var ov3cat = new L.TileLayer.WMS('http://osm.sbin.ru/ov3/',{layers: ['orbview3cat'], format: 'image/png', attribution: OV3_COPY});
-  var overlays = { "OrbView-3": ov3, "OrbView-3 границы": ov3cat, "Осмоснимки (гибрид)": kh };
+  var ov3cat0 = new L.TileLayer.WMS('http://osm.sbin.ru/ov3/',{layers: ['orbview3cat0'], format: 'image/png', attribution: OV3_COPY});
+  var ov3cat33 = new L.TileLayer.WMS('http://osm.sbin.ru/ov3/',{layers: ['orbview3cat33'], format: 'image/png', attribution: OV3_COPY});
+  var ov3cat67 = new L.TileLayer.WMS('http://osm.sbin.ru/ov3/',{layers: ['orbview3cat67'], format: 'image/png', attribution: OV3_COPY});
+  var overlays = {
+    "OrbView-3": ov3,
+    "Осмоснимки (гибрид)": kh,
+    "OrbView-3 границы": ov3cat,
+    "OrbView-3 границы обл.<33%": ov3cat0,
+    "OrbView-3 границы 33%\u2a7dобл.<67%": ov3cat33,
+    "OrbView-3 границы обл.\u2a7e66%": ov3cat67
+ };
 
   map.addLayer(km);
   map.addLayer(ov3);

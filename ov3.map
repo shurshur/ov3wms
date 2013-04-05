@@ -9,6 +9,7 @@ MAP
     "init=epsg:4326"
   END
   EXTENT -180 -90 180 90
+  TRANSPARENT ON
 
 WEB
     TEMPLATE "template.html"
@@ -18,7 +19,7 @@ WEB
         "ows_enable_request"   "*"
 	"wms_title"     "OrvView-3 Test WMS"
 	"wms_onlineresource" "http://osm.sbin.ru/ov3/"
-	"wms_srs"       "EPSG:4326"
+	"wms_srs" "EPSG:3857 EPSG:4326"
     END
 END
 
@@ -64,6 +65,92 @@ LAYER
     END
     METADATA
 	"wms_title" "OrbView-3 Preview"
+	"wms_srs" "EPSG:3857 EPSG:4326"
+    END
+END
+
+LAYER
+    NAME "orbview3cat"
+    DATA "shp/orbview3_catalog"
+    TYPE LINE
+    STATUS ON
+    CLASS
+        NAME "Bounds 67"
+	EXPRESSION ([cloud] >= 67)
+        STYLE
+            COLOR 255 0 0
+        END
+    END
+    CLASS
+        NAME "Bounds 33"
+	EXPRESSION ([cloud] < 67 AND [cloud] ge 33)
+        STYLE
+            COLOR 255 192 0 
+        END
+    END
+    CLASS
+        NAME "Bounds 0"
+	EXPRESSION ([cloud] < 33)
+        STYLE
+            COLOR 0 255 0
+        END
+    END
+END
+
+LAYER
+    NAME "orbview3cat0"
+    DATA "shp/orbview3_catalog"
+    TYPE LINE
+    STATUS ON
+    CLASS
+        NAME "Bounds 0"
+	EXPRESSION ([cloud] < 33)
+        STYLE
+            COLOR 0 255 0
+        END
+    END
+END
+
+LAYER
+    NAME "orbview3cat33"
+    DATA "shp/orbview3_catalog"
+    TYPE LINE
+    STATUS ON
+    CLASS
+        NAME "Bounds 33"
+	EXPRESSION ([cloud] < 67 AND [cloud] ge 33)
+        STYLE
+            COLOR 255 192 0 
+        END
+    END
+END
+
+LAYER
+    NAME "orbview3cat67"
+    DATA "shp/orbview3_catalog"
+    TYPE LINE
+    STATUS ON
+    CLASS
+        NAME "Bounds 67"
+	EXPRESSION ([cloud] >= 67)
+        STYLE
+            COLOR 255 0 0
+        END
+    END
+END
+
+LAYER
+    NAME "aster"
+    TYPE RASTER
+    STATUS ON
+    OPACITY ALPHA
+    TILEINDEX "ti/aster.shp"
+    TILEITEM "Location"
+    PROJECTION
+        "init=epsg:4326"
+    END
+    METADATA
+	"wms_title" "ASTER"
 	"wms_srs" "EPSG:3857"
     END
 END

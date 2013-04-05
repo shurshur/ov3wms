@@ -15,7 +15,7 @@ while($row = pg_fetch_assoc($res)) {
   $lid = strtolower($id);
   if(!$row["cloud"] && $row["cloud"]!="0") $row["cloud"]="???";
   $add = "";
-  if (file_exists($ov3base."/rec/$lid.rec.tif")) $add="*";
+  if (file_exists($ov3base."/rec/$lid.rec.tif")) $add="*&nbsp;";
 
   $links = array();
   if (file_exists($ov3base."/data/$id.ZIP")) $links []= "<a href=data/$id.ZIP>zip</a>";
@@ -24,7 +24,7 @@ while($row = pg_fetch_assoc($res)) {
   if (file_exists($ov3base."/rec/$lid.rec.tif")) $links []= "<a href=rec/$lid.rec.tif>rec</a>";
   if (file_exists($ov3base."/map/$id.map")) $links []= "<a href=\"javascript:addwms('$id')\">wms</a>";
   $links = implode("&nbsp;", $links);
-  print "$add<a href=./browse:$id target=_blank>$id</a><br>&raquo;&nbsp;дата:&nbsp;".$row["acq_date"]."&nbsp;облачность&nbsp;".$row["cloud"]."%&nbsp;$links<br>";
+  print "$add<a href=./browse:$id target=_blank>$id</a><br>&raquo;&nbsp;дата:&nbsp;".$row["acq_date"]."&nbsp;обл.:&nbsp;".$row["cloud"]."%&nbsp;$links<br>";
 }
 
 ?>
